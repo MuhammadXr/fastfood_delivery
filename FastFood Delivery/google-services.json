@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "947935971891",
+    "project_id": "max-way-71d9f",
+    "storage_bucket": "max-way-71d9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947935971891:android:938c95b90301331a10b146",
+        "android_client_info": {
+          "package_name": "uz.gita.fastfooddelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947935971891-o815dqkvmfuotjsn0lh8sg69n93r4q1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIf1PFQxrGWskGpRo5ztgWWKXKemaPDzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947935971891-o815dqkvmfuotjsn0lh8sg69n93r4q1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947935971891:android:05ab9ce63b6e652b10b146",
+        "android_client_info": {
+          "package_name": "uz.gita.fastfoodorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947935971891-o815dqkvmfuotjsn0lh8sg69n93r4q1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIf1PFQxrGWskGpRo5ztgWWKXKemaPDzE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947935971891-o815dqkvmfuotjsn0lh8sg69n93r4q1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
