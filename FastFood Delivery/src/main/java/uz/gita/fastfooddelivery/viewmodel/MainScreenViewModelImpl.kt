@@ -26,7 +26,7 @@ class MainScreenViewModelImpl @Inject constructor(
 ) : MainScreenViewModel, ViewModel() {
 
     private val rep = Repository.orderRepository
-    val uiState = UiState(emptyList())
+    private val uiState = UiState(emptyList())
 
     override val container: Container<UiState, Nothing> = container(uiState){
         requestOrders()
