@@ -25,7 +25,9 @@ internal class CategoriesRepositoryImpl : CategoriesRepository {
     }
 
     override fun updateCategory(categoryData: CategoryData): Flow<Result<Unit>> = flow {
-        db.collection("categories").document(categoryData.id).set(categoryData)
+        db.collection("categories").document(categoryData.id).update(
+            "id", categoryData.id,
+            "name", categoryData.name)
             .addOnSuccessListener {
                 CoroutineScope(Dispatchers.IO).launch {
                     emit(Result.success(Unit))

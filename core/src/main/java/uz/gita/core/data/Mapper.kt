@@ -22,7 +22,6 @@ object Mapper {
     fun DocumentSnapshot.toOrderData() = OrderData(
         id = this.id,
         name = this["name"].toString(),
-        foodCollection = this["foodCollection"] as List<Map<String, Int>>,
         price = this["price"].toString().toLong(),
         info = this["info"].toString(),
         imgUrl = this["imgUrl"].toString()
