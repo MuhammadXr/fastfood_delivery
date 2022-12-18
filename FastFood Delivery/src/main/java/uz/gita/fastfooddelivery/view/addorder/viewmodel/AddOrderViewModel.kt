@@ -1,8 +1,7 @@
-package uz.gita.fastfooddelivery.ui.addorder.viewmodel
+package uz.gita.fastfooddelivery.view.addorder.viewmodel
 
 import uz.gita.core.data.models.OrderData
 import uz.gita.fastfooddelivery.AppViewModel
-import uz.gita.fastfooddelivery.ui.main.viewmodel.Intent
 
 interface AddOrderViewModel: AppViewModel<AddOrderIntent, AddOrderUiState, Nothing> {
 }

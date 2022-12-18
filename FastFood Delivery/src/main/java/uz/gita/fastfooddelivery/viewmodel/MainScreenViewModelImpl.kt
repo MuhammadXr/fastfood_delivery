@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -14,10 +13,9 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import uz.gita.core.repository.Repository
 import uz.gita.fastfooddelivery.directions.MainDirections
-import uz.gita.fastfooddelivery.ui.addorder.AddOrderScreen
-import uz.gita.fastfooddelivery.ui.main.viewmodel.Intent
-import uz.gita.fastfooddelivery.ui.main.viewmodel.MainScreenViewModel
-import uz.gita.fastfooddelivery.ui.main.viewmodel.UiState
+import uz.gita.fastfooddelivery.view.main.viewmodel.MainIntent
+import uz.gita.fastfooddelivery.view.main.viewmodel.MainScreenViewModel
+import uz.gita.fastfooddelivery.view.main.viewmodel.UiState
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,40 +23,59 @@ class MainScreenViewModelImpl @Inject constructor(
     private val mainDirections: MainDirections
 ) : MainScreenViewModel, ViewModel() {
 
-    private val rep = Repository.orderRepository
-    private val uiState = UiState(emptyList())
+    private val repOrder = Repository.orderRepository
+    private val repCategory = Repository.categoriesRepository
+    private val uiState = UiState(emptyList(), emptyList())
 
-    override val container: Container<UiState, Nothing> = container(uiState){
-        requestOrders()
+    override val container: Container<UiState, Nothing> = container(uiState) {
+        requestItems()
     }
 
-    override fun onEventDispatcher(intent: Intent) {
+    override fun onEventDispatcher(intent: MainIntent) {
         viewModelScope.launch {
-            when(intent) {
-                is Intent.AddOrderButton -> {
+            when (intent) {
+                is MainIntent.AddOrderButton -> {
                     mainDirections.navigateToAddDirection()
                 }
-                is Intent.Back -> {
+                is MainIntent.Back -> {
                     mainDirections.back()
                 }
-                is Intent.Order -> {
+                is MainIntent.Order -> {
 
                 }
+                is MainIntent.AddToCart -> {
+
+                }
+                is MainIntent.GotoAddCategory -> mainDirections.navigateToAddCategory()
             }
         }
 
     }
 
-    private fun requestOrders(): Unit = intent{
+    private fun requestItems(): Unit = intent {
         viewModelScope.launch {
-            rep.getOrdersRealTime()
-                .onEach {
-                    reduce {
-                        state.copy(orderList = it)
-                    }
+            launch {
+                repCategory.getCategories()
+                    .onEach { result ->
+                        Log.d("TTT", "CATEGORIYA ADD WORKED")
+                        reduce {
+                            state.copy(categoryList = result)
+                        }
 
-                }
-                .collect()
+                    }
+                    .collect()
+            }
+            launch {
+                repOrder.getOrdersRealTime()
+                    .onEach {
+                        Log.d("TTT", "Order ADD WORKED")
+                        reduce {
+                            state.copy(orderList = it)
+                        }
+
+                    }
+                    .collect()
+            }
         }
     }
 }

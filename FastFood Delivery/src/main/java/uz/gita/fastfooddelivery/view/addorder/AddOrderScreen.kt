@@ -1,4 +1,4 @@
-package uz.gita.fastfooddelivery.ui.addorder
+package uz.gita.fastfooddelivery.view.addorder
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,9 +18,9 @@ import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.hilt.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import uz.gita.core.data.models.OrderData
-import uz.gita.fastfooddelivery.ui.addorder.viewmodel.AddOrderIntent
-import uz.gita.fastfooddelivery.ui.addorder.viewmodel.AddOrderUiState
-import uz.gita.fastfooddelivery.ui.addorder.viewmodel.AddOrderViewModel
+import uz.gita.fastfooddelivery.view.addorder.viewmodel.AddOrderIntent
+import uz.gita.fastfooddelivery.view.addorder.viewmodel.AddOrderUiState
+import uz.gita.fastfooddelivery.view.addorder.viewmodel.AddOrderViewModel
 import uz.gita.fastfooddelivery.viewmodel.AddOrderViewModelImpl
 
 

@@ -12,8 +12,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import uz.gita.fastfooddelivery.navigations.NavigationHandler
-import uz.gita.fastfooddelivery.ui.main.MainScreen
-import uz.gita.fastfooddelivery.ui.theme.AppTheme
+import uz.gita.fastfooddelivery.view.main.MainScreen
+import uz.gita.fastfooddelivery.view.theme.AppTheme
 import javax.inject.Inject
 
 @AndroidEntryPoint

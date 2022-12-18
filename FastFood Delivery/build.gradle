@@ -51,6 +51,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.1.0'
     def room_version = "2.4.3"
 
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation "androidx.compose.ui:ui:1.2.1"
     //noinspection GradleDependency
@@ -111,12 +114,16 @@ dependencies {
 
 
     // Import the Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:31.0.3')
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
 
     // When using the BoM, you don't specify versions in Firebase library dependencies
 
     // Add the dependency for the Firebase SDK for Google Analytics
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // Add the dependency for the Cloud Storage library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-storage-ktx'
 
     // TODO: Add the dependencies for any other Firebase products you want to use
     // See https://firebase.google.com/docs/android/setup#available-libraries
@@ -168,6 +175,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     implementation "com.github.skydoves:landscapist-glide:2.1.0"
+
+
+
 }
 
 

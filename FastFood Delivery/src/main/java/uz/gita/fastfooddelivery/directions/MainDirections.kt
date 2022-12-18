@@ -5,5 +5,7 @@ import uz.gita.fastfooddelivery.navigations.AppScreen
 interface MainDirections {
     suspend fun navigateToAddDirection()
 
+    suspend fun navigateToAddCategory()
+
     suspend fun back()
 }

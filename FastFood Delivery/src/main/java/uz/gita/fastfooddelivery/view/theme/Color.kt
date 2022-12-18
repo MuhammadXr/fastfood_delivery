@@ -1,4 +1,4 @@
-package uz.gita.fastfooddelivery.ui.theme
+package uz.gita.fastfooddelivery.view.theme
 
 import androidx.compose.ui.graphics.Color
 
