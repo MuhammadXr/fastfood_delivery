@@ -23,12 +23,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.hilt.getViewModel
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import org.orbitmvi.orbit.compose.collectAsState
 import uz.gita.core.data.models.OrderData
 import uz.gita.fastfooddelivery.screen_items.CategoryScreenItem
 import uz.gita.fastfooddelivery.screen_items.OrderItem
+import uz.gita.fastfooddelivery.screen_items.OrderItemTitle
 import uz.gita.fastfooddelivery.view.main.viewmodel.MainIntent
 import uz.gita.fastfooddelivery.view.main.viewmodel.MainScreenViewModel
 import uz.gita.fastfooddelivery.view.main.viewmodel.UiState
@@ -41,12 +44,15 @@ class MainScreen : AndroidScreen() {
     override fun Content() {
 
         val viewModel: MainScreenViewModel = getViewModel<MainScreenViewModelImpl>()
+        viewModel.setNavigator(LocalNavigator.currentOrThrow)
         val uiState = viewModel.collectAsState().value
 
         MainScreenContent(
             uiState,
             viewModel::onEventDispatcher
         )
+
+
 
     }
 
@@ -58,52 +64,65 @@ fun MainScreenContent(
     uiState: UiState,
     eventDispatcher: (MainIntent) -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().background(Color.White)) {
         TopAppBar(eventDispatcher)
+        val list = uiState.categoryItems
+        LazyRow {
+            items(
+                count = list.size,
+                itemContent = { index ->
+                    val item = list[index]
+                    CategoryScreenItem(
+                        categoryData = item,
+                        horizontalPadding = 4.dp,
+                        verticalPadding = 4.dp
+                    )
+                }
+            )
+        }
 
         LazyVerticalGrid(
-            modifier = Modifier.padding(10.dp),
-            columns = GridCells.Adaptive(minSize = 128.dp)
+            modifier = Modifier.padding(horizontal = 4.dp),
+            columns = GridCells.Adaptive(minSize = 180.dp)
         ) {
-            item (span = { GridItemSpan(2) }){
-                LazyRow {
+
+            list.forEach { categoryItem ->
+                val orderList = uiState.itemsList
+                    .filter { orderItem -> (orderItem).category == categoryItem.name }
+
+
+                if (orderList.isNotEmpty()) {
+                    item(span = { GridItemSpan(2) }) {
+                        OrderItemTitle(title = categoryItem.name, horizontalPadding = 8.dp, verticalPadding = 8.dp)
+                    }
+
                     items(
-                        count = uiState.categoryList.size,
+                        count = orderList.size,
                         itemContent = { index ->
-                            val item = uiState.categoryList[index]
-                            CategoryScreenItem(
-                                categoryData = item,
+                            val item = orderList[index]
+                            OrderItem(
+                                orderData = item,
                                 horizontalPadding = 4.dp,
-                                verticalPadding = 4.dp
+                                verticalPadding = 10.dp,
+                                buttonAddToCart = {
+                                    eventDispatcher.invoke(MainIntent.AddToCart)
+                                }
                             )
                         }
                     )
                 }
             }
 
-
-            items(
-                count = uiState.orderList.size,
-                itemContent = { index ->
-                    val item = uiState.orderList[index]
-                    OrderItem(
-                        orderData = item,
-                        horizontalPadding = 10.dp,
-                        verticalPadding = 10.dp,
-                        buttonAddToCart = {
-                            eventDispatcher.invoke(MainIntent.AddToCart)
-                        }
-                    )
-                }
-            )
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
         Column(modifier = Modifier
             .align(Alignment.BottomEnd)
-            .padding(20.dp)
-            .background(Color.Blue)
+            .padding(10.dp)
+            .background(Color.Transparent)
             .wrapContentHeight()
             .padding(4.dp)) {
 

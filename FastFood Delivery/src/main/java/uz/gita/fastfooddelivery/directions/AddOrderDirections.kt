@@ -2,7 +2,7 @@ package uz.gita.fastfooddelivery.directions
 
 import cafe.adriel.voyager.navigator.Navigator
 
-interface AddCategoryDirections {
+interface AddOrderDirections {
 
     var navigator: Navigator
 

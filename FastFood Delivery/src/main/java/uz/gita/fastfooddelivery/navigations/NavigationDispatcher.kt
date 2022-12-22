@@ -21,7 +21,6 @@ class NavigationDispatcher @Inject constructor() : AppNavigation, NavigationHand
     override suspend fun backToRoot() = navigate { popUntilRoot() }
 
     override suspend fun navigateTo(screen: AppScreen) = navigate {
-        Log.d("TTT", "${this.size}")
         push(screen)
     }
 

@@ -30,7 +30,7 @@ class MainScreenViewModelImpl : MainScreenViewModel, ViewModel() {
         viewModelScope.launch {
             rep.getOrdersRealTime()
                 .onEach {
-                    state.copy(orderList = it.getOrDefault(emptyList()))
+                    state.copy(orderList = it)
                 }
                 .collect()
         }

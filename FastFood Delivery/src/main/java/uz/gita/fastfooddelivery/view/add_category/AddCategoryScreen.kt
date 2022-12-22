@@ -15,6 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.hilt.getViewModel
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import org.orbitmvi.orbit.compose.collectAsState
 import uz.gita.fastfooddelivery.view.add_category.viewmodel.A_C_UiState
 import uz.gita.fastfooddelivery.view.add_category.viewmodel.AddCategoryIntent
@@ -25,6 +27,7 @@ class AddCategoryScreen: AndroidScreen() {
     @Composable
     override fun Content() {
         val viewModel : AddCategoryViewModel = getViewModel<AddCategoryViewModelImpl>()
+        viewModel.setNavigator(LocalNavigator.currentOrThrow)
         val uiState = viewModel.collectAsState().value
 
         AddCategoryScreenContent(

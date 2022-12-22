@@ -3,6 +3,7 @@ package uz.gita.fastfooddelivery.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cafe.adriel.voyager.navigator.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -13,6 +14,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import uz.gita.core.repository.Repository
 import uz.gita.fastfooddelivery.directions.MainDirections
+import uz.gita.fastfooddelivery.domain.usecases.MainUseCase
 import uz.gita.fastfooddelivery.view.main.viewmodel.MainIntent
 import uz.gita.fastfooddelivery.view.main.viewmodel.MainScreenViewModel
 import uz.gita.fastfooddelivery.view.main.viewmodel.UiState
@@ -20,23 +22,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainScreenViewModelImpl @Inject constructor(
-    private val mainDirections: MainDirections
+    private val mainDirections: MainDirections,
+    private val useCase: MainUseCase
 ) : MainScreenViewModel, ViewModel() {
 
-    private val repOrder = Repository.orderRepository
-    private val repCategory = Repository.categoriesRepository
-    private val uiState = UiState(emptyList(), emptyList())
+
+    private val uiState = UiState(emptyList())
 
     override val container: Container<UiState, Nothing> = container(uiState) {
         requestItems()
     }
 
+    override fun setNavigator(navigator: Navigator){
+        mainDirections.navigator = navigator
+    }
+
     override fun onEventDispatcher(intent: MainIntent) {
         viewModelScope.launch {
             when (intent) {
-                is MainIntent.AddOrderButton -> {
-                    mainDirections.navigateToAddDirection()
-                }
+                is MainIntent.AddOrderButton -> mainDirections.navigateToAddOrders()
+
                 is MainIntent.Back -> {
                     mainDirections.back()
                 }
@@ -55,26 +60,18 @@ class MainScreenViewModelImpl @Inject constructor(
     private fun requestItems(): Unit = intent {
         viewModelScope.launch {
             launch {
-                repCategory.getCategories()
-                    .onEach { result ->
-                        Log.d("TTT", "CATEGORIYA ADD WORKED")
-                        reduce {
-                            state.copy(categoryList = result)
-                        }
-
+                useCase.getOrdersList().collect(){
+                    reduce {
+                        state.copy(itemsList = it)
                     }
-                    .collect()
+                }
             }
             launch {
-                repOrder.getOrdersRealTime()
-                    .onEach {
-                        Log.d("TTT", "Order ADD WORKED")
-                        reduce {
-                            state.copy(orderList = it)
-                        }
-
+                useCase.getCategories().collect(){
+                    reduce {
+                        state.copy(categoryItems = it)
                     }
-                    .collect()
+                }
             }
         }
     }

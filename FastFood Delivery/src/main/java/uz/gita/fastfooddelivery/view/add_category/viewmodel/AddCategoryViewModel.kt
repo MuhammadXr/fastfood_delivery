@@ -1,8 +1,11 @@
 package uz.gita.fastfooddelivery.view.add_category.viewmodel
 
+import cafe.adriel.voyager.navigator.Navigator
 import uz.gita.fastfooddelivery.AppViewModel
 
-interface AddCategoryViewModel: AppViewModel<AddCategoryIntent, A_C_UiState, Nothing>
+interface AddCategoryViewModel: AppViewModel<AddCategoryIntent, A_C_UiState, Nothing>{
+    fun setNavigator(navigator: Navigator)
+}
 
 sealed interface AddCategoryIntent{
     object Back: AddCategoryIntent

@@ -1,9 +1,13 @@
 package uz.gita.fastfooddelivery.directions
 
+import cafe.adriel.voyager.navigator.Navigator
 import uz.gita.fastfooddelivery.navigations.AppScreen
 
 interface MainDirections {
-    suspend fun navigateToAddDirection()
+
+    var navigator: Navigator
+
+    suspend fun navigateToAddOrders()
 
     suspend fun navigateToAddCategory()
 

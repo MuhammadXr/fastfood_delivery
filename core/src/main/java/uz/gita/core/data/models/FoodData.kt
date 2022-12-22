@@ -6,4 +6,4 @@ data class FoodData(
     val price: Long,
     val info: String,
     val imgUrl:String,
-)
+): java.io.Serializable

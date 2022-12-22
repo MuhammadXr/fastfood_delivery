@@ -16,7 +16,8 @@ object Mapper {
 
     fun DocumentSnapshot.toCategoryData() = CategoryData(
         id = this.id,
-        name = this["name"].toString()
+        name = this["name"].toString(),
+        relevance = this["relevance"].toString().toInt()
     )
 
     fun DocumentSnapshot.toOrderData() = OrderData(
@@ -24,6 +25,7 @@ object Mapper {
         name = this["name"].toString(),
         price = this["price"].toString().toLong(),
         info = this["info"].toString(),
-        imgUrl = this["imgUrl"].toString()
+        imgUrl = this["imgUrl"].toString(),
+        category = this["category"].toString()
     )
 }

@@ -3,6 +3,7 @@ package uz.gita.fastfooddelivery.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cafe.adriel.voyager.navigator.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -29,6 +30,9 @@ class AddCategoryViewModelImpl @Inject constructor(
     private val repository = Repository.categoriesRepository
 
     override val container: Container<A_C_UiState, Nothing> = container(A_C_UiState())
+    override fun setNavigator(navigator: Navigator) {
+        directions.navigator = navigator
+    }
 
     override fun onEventDispatcher(intent: AddCategoryIntent) {
         viewModelScope.launch {

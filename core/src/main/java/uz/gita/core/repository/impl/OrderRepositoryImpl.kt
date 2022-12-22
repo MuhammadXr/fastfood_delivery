@@ -17,12 +17,15 @@ internal class OrderRepositoryImpl : OrderRepository {
 
     private val db = Firebase.firestore
 
-    override fun placingOrder(orderData: OrderData): Flow<Result<Unit>> = channelFlow{
+    override fun placingOrder(orderData: OrderData): Flow<Result<Unit>> = callbackFlow{
         Log.d("TTT", "${orderData.id} ${orderData.name}")
         db.collection("orders").document(orderData.id).set(orderData)
             .addOnSuccessListener {
+                trySend(Result.success(Unit))
                 Log.d("TTT", "DocumentSnapshot successfully written!")
             }
+
+        awaitClose{}
     }
 
     override fun getOrders(): Flow<Result<List<OrderData>>> = channelFlow{
