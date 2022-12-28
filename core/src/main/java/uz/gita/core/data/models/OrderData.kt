@@ -8,5 +8,5 @@ data class OrderData(
     val price: Long = 0,
     val category: String = "food",
     val info: String = "info temporarily unavailable",
-    val imgUrl: String = "",
+    var imgUrl: String = "",
 ): java.io.Serializable

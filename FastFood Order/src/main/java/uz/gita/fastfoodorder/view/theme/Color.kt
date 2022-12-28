@@ -1,4 +1,4 @@
-package uz.gita.fastfoodorder.ui.theme
+package uz.gita.fastfoodorder.view.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -52,8 +52,6 @@ class MainScreen : AndroidScreen() {
             viewModel::onEventDispatcher
         )
 
-
-
     }
 
 }

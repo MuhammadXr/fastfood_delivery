@@ -1,4 +1,4 @@
-package uz.gita.fastfoodorder.ui.theme
+package uz.gita.fastfoodorder.view.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

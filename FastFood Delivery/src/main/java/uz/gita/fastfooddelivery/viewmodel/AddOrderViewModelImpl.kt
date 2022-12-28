@@ -1,10 +1,13 @@
 package uz.gita.fastfooddelivery.viewmodel
 
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cafe.adriel.voyager.navigator.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -28,6 +31,7 @@ class AddOrderViewModelImpl @Inject constructor(
 ) : AddOrderViewModel, ViewModel() {
 
     private val orderRep = Repository.orderRepository
+    private val fileRep = Repository.filesRepository
     val uiState = AddOrderUiState()
 
     override val container: Container<AddOrderUiState, Nothing> = container(uiState) {
@@ -61,14 +65,36 @@ class AddOrderViewModelImpl @Inject constructor(
         }
     }
 
-    private fun placeOrder(orderData: OrderData) {
-        viewModelScope.launch {
+    private fun placeOrder(orderData: OrderData){
+        viewModelScope.launch(Dispatchers.IO) {
+            fileRep.uploadImage(orderData.imgUrl.toUri(), orderData.name.plus(".jpg"))
+                .collect(){ result ->
+                    result.run {
+                        onSuccess {
+                            it?.let {
+                                orderData.imgUrl = it.toString()
+                                uploadOrderData(orderData)
+                            }
+                        }
+                        onFailure {
+                            launch (Dispatchers.Main) {
+                                toast.makeText(it.toString())
+                            }
+                        }
+                    }
+                }
+        }
+
+    }
+
+    private fun uploadOrderData(orderData: OrderData) {
+        viewModelScope.launch(Dispatchers.IO) {
             orderRep.placingOrder(orderData).collect() {
-                Log.d("TTT", "Result worked")
                 it.run {
-                    Log.d("TTT", "Result worked")
                     onSuccess {
-                        toast.makeText("Added")
+                        launch (Dispatchers.Main) {
+                            toast.makeText("Added")
+                        }
                     }
                     onFailure {
 

@@ -1,6 +1,7 @@
 package uz.gita.fastfooddelivery
 
 import android.annotation.SuppressLint
+import android.graphics.ImageDecoder
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
@@ -41,6 +43,7 @@ class MainActivity : ComponentActivity() {
             //AppTheme {
                 TabScreenContent()
             //}
+
         }
     }
 }
@@ -63,10 +66,9 @@ fun TabScreenContent() {
             },
             bottomBar = {
                 BottomNavigation {
-                    TabNavigationItem(tab = MainTab)
-                    TabNavigationItem(tab = MenuTab)
-                    TabNavigationItem(tab = RestaurantTab)
                     TabNavigationItem(tab = OrdersTab)
+                    TabNavigationItem(tab = RestaurantTab)
+                    TabNavigationItem(tab = MainTab)
                     TabNavigationItem(tab = ProfileTab)
                 }
             }

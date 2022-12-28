@@ -44,7 +44,7 @@ dependencies {
 
 
     // Import the Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:31.0.3')
+    implementation platform('com.google.firebase:firebase-bom:31.1.1')
 
     // When using the BoM, you don't specify versions in Firebase library dependencies
 
@@ -55,5 +55,7 @@ dependencies {
     // See https://firebase.google.com/docs/android/setup#available-libraries
     // For example, add the dependencies for Firebase Authentication and Cloud Firestore
     implementation 'com.google.firebase:firebase-auth-ktx'
-    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'// Add the dependency for the Cloud Storage library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-storage-ktx'
 }

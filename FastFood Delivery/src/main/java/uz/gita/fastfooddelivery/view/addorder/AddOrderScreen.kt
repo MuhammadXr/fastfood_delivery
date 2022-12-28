@@ -1,5 +1,16 @@
 package uz.gita.fastfooddelivery.view.addorder
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,17 +28,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toFile
 import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.hilt.getViewModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.github.drjacky.imagepicker.ImagePicker
+import com.github.drjacky.imagepicker.constant.ImageProvider
+import com.skydoves.landscapist.glide.GlideImage
 import org.orbitmvi.orbit.compose.collectAsState
 import uz.gita.core.data.models.OrderData
+import uz.gita.fastfooddelivery.utils.getImageFilePath
+import uz.gita.fastfooddelivery.utils.getPath
 import uz.gita.fastfooddelivery.view.addorder.viewmodel.AddOrderIntent
 import uz.gita.fastfooddelivery.view.addorder.viewmodel.AddOrderUiState
 import uz.gita.fastfooddelivery.view.addorder.viewmodel.AddOrderViewModel
@@ -59,6 +77,18 @@ fun AddOrderScreenContent(
     val inputPrice = remember { mutableStateOf(TextFieldValue()) }
     val inputInfo = remember { mutableStateOf(TextFieldValue()) }
     val selectCategory = remember { mutableStateOf("") }
+    val imageUri = remember { mutableStateOf<Uri?>(null) }
+
+    
+
+    val launcher =
+        rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult(),
+        onResult = {
+            Log.d("TTT", "RESULT PATH ${it.data?.data}")
+            imageUri.value = it.data?.data
+        }
+    )
 
     Box(modifier = Modifier.fillMaxSize()) {
         IconButton(onClick = { eventDispatcher.invoke(AddOrderIntent.Back) }) {
@@ -75,6 +105,46 @@ fun AddOrderScreenContent(
     ) {
 
         Text(text = "Order Adding...", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+
+        DropDownSpinner(
+            modifier = Modifier.width(280.dp),
+            selectedItem = selectCategory.value,
+            onItemSelected = { _, item ->
+                selectCategory.value = item
+            },
+            itemList = uiState.categoriesList.map { it.name },
+            defaultText = "Select Category",
+        )
+        val activity = LocalContext.current as Activity
+        Box(
+            modifier = Modifier
+                .size(100.dp)
+                .weight(1f)
+                .clickable {
+                    ImagePicker.with(activity = activity)
+                        .crop()
+                        .maxResultSize(512, 512, true)
+                        .provider(ImageProvider.BOTH)
+                        .createIntentFromDialog {
+                            launcher.launch(it)
+                        }
+                }
+                .clip(RoundedCornerShape(20.dp))
+                .background(color = Color(0xFFCECECE)),
+        ) {
+            if (imageUri.value != null) {
+                GlideImage(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .align(Alignment.Center),
+                    imageModel = { imageUri.value },
+                    )
+            } else {
+                Text(text = "Choose image", modifier = Modifier.align(Alignment.Center))
+            }
+
+        }
+
 
         TextField(
             value = inputName.value,
@@ -97,15 +167,6 @@ fun AddOrderScreenContent(
             placeholder = { Text(text = "Price") }
         )
 
-        DropDownSpinner(
-            selectedItem = selectCategory.value,
-            onItemSelected = { _, item ->
-                selectCategory.value = item as String
-            },
-            itemList = uiState.categoriesList.map { it.name },
-            defaultText = "Select Category",
-
-            )
 
         Button(
             onClick = {
@@ -114,8 +175,10 @@ fun AddOrderScreenContent(
                     name = inputName.value.text,
                     price = inputPrice.value.text.toLong(),
                     info = inputInfo.value.text,
-                    category = selectCategory.value
+                    category = selectCategory.value,
+                    imgUrl = imageUri.value.toString()
                 )
+
                 eventDispatcher.invoke(AddOrderIntent.AddOrder(order))
             }
         ) {
@@ -203,3 +266,4 @@ fun <E> DropDownSpinner(
         )
     }
 }
+
