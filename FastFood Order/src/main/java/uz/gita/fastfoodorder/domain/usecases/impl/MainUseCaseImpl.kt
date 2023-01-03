@@ -4,14 +4,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import uz.gita.core.data.models.CategoryData
 import uz.gita.core.data.models.OrderData
-import uz.gita.core.repository.Repository
+import uz.gita.core.repository.DeliveryRepository
 import uz.gita.fastfoodorder.domain.usecases.MainUseCase
 import java.io.Serializable
 import javax.inject.Inject
 
 class MainUseCaseImpl @Inject constructor() : MainUseCase {
-    private val orderRepository = Repository.orderRepository
-    private val categoriesRepository = Repository.categoriesRepository
+    private val orderRepository = DeliveryRepository.orderRepository
+    private val categoriesRepository = DeliveryRepository.categoriesRepository
 
     override suspend fun getOrdersList(): Flow<List<OrderData>> {
         return orderRepository.getOrdersRealTime()

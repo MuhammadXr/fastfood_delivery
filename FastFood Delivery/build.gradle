@@ -181,6 +181,7 @@ dependencies {
 
     implementation "com.github.Drjacky:ImagePicker:$libVersion"
 
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
 }
 
 

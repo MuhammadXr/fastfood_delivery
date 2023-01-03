@@ -5,12 +5,8 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
-import uz.gita.fastfooddelivery.directions.AddCategoryDirections
-import uz.gita.fastfooddelivery.directions.AddOrderDirections
-import uz.gita.fastfooddelivery.directions.MainDirections
-import uz.gita.fastfooddelivery.directions.impl.AddCategoryDirectionsImpl
-import uz.gita.fastfooddelivery.directions.impl.AddOrderDirectionsImpl
-import uz.gita.fastfooddelivery.directions.impl.MainDirectionsImpl
+import uz.gita.fastfooddelivery.directions.*
+import uz.gita.fastfooddelivery.directions.impl.*
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -23,4 +19,19 @@ interface DirectionsModule {
 
     @Binds
     fun addOrderDirection(impl: AddOrderDirectionsImpl): AddOrderDirections
+
+    @Binds
+    fun signInDirection(impl: SignInDirectionsImpl): SignInDirections
+
+    @Binds
+    fun verifyDirections(impl: VerifyDirectionsImpl): VerifyDirections
+
+    @Binds
+    fun splashDirections(impl: SplashDirectionsImpl): SplashDirections
+
+    @Binds
+    fun profileDirections(impl: ProfileDirectionsImpl): ProfileDirections
+
+    @Binds
+    fun registerDirections(impl: RegisterDirectionsImpl): RegisterDirections
 }

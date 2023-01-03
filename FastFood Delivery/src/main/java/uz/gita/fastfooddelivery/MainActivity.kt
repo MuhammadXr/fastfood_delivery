@@ -1,7 +1,6 @@
 package uz.gita.fastfooddelivery
 
 import android.annotation.SuppressLint
-import android.graphics.ImageDecoder
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,15 +16,21 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.lifecycleScope
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import cafe.adriel.voyager.transitions.FadeTransition
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import uz.gita.fastfooddelivery.navigations.NavigationHandler
-import uz.gita.fastfooddelivery.view.bottom_navigation.*
-import uz.gita.fastfooddelivery.view.theme.AppTheme
+import uz.gita.fastfooddelivery.view.auth_ui.login.SignInScreen
+import uz.gita.fastfooddelivery.view.splash.SplashScreen
+import uz.gita.fastfooddelivery.view.tab_navigation.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,63 +45,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            //AppTheme {
-                TabScreenContent()
-            //}
-
+            Navigator(screen = SplashScreen()){ navigator ->
+                navigationHandler.navigationStack
+                    .onEach { it.invoke(navigator) }
+                    .launchIn(lifecycleScope)
+                FadeTransition(navigator = navigator)
+            }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-fun TabScreenContent() {
-    TabNavigator(tab = MainTab) { tabNavigator ->
-        Scaffold(
-            topBar = { },
-            content = {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(it)
-                ) {
-                    CurrentTab()
-                }
-            },
-            bottomBar = {
-                BottomNavigation {
-                    TabNavigationItem(tab = OrdersTab)
-                    TabNavigationItem(tab = RestaurantTab)
-                    TabNavigationItem(tab = MainTab)
-                    TabNavigationItem(tab = ProfileTab)
-                }
-            }
-        )
-    }
-}
-
-@Composable
-fun SimpleMainScreen() {
-//    Navigator(
-//        screen = MainScreen(),
-//    ) { navigator ->
-//        navigationHandler.navigationStack
-//            .onEach { it.invoke(navigator) }
-//            .launchIn(lifecycleScope)
-//        SlideTransition(navigator = navigator)
-//    }
-}
-
-@Composable
-fun RowScope.TabNavigationItem(tab: Tab) {
-
-    val tabNavigator = LocalTabNavigator.current
-
-    BottomNavigationItem(
-        selected = tabNavigator.current.key == tab.key,
-        onClick = { tabNavigator.current = tab },
-        icon = { Icon(painter = tab.options.icon!!, contentDescription = tab.options.title) }
-    )
-
-}

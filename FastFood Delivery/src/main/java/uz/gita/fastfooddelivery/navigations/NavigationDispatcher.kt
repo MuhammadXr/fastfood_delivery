@@ -24,5 +24,9 @@ class NavigationDispatcher @Inject constructor() : AppNavigation, NavigationHand
         push(screen)
     }
 
+    override suspend fun replaceTo(screen: AppScreen) = navigate{
+        replace(screen)
+    }
+
 
 }

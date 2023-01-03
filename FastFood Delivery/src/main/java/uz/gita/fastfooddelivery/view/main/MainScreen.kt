@@ -25,10 +25,12 @@ import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.hilt.getViewModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.google.firebase.auth.FirebaseUser
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import org.orbitmvi.orbit.compose.collectAsState
 import uz.gita.core.data.models.OrderData
+import uz.gita.core.repository.DeliveryRepository
 import uz.gita.fastfooddelivery.screen_items.CategoryScreenItem
 import uz.gita.fastfooddelivery.screen_items.OrderItem
 import uz.gita.fastfooddelivery.screen_items.OrderItemTitle
@@ -46,7 +48,6 @@ class MainScreen : AndroidScreen() {
         val viewModel: MainScreenViewModel = getViewModel<MainScreenViewModelImpl>()
         viewModel.setNavigator(LocalNavigator.currentOrThrow)
         val uiState = viewModel.collectAsState().value
-
         MainScreenContent(
             uiState,
             viewModel::onEventDispatcher

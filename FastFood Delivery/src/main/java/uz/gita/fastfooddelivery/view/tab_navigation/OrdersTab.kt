@@ -1,4 +1,4 @@
-package uz.gita.fastfooddelivery.view.bottom_navigation
+package uz.gita.fastfooddelivery.view.tab_navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart

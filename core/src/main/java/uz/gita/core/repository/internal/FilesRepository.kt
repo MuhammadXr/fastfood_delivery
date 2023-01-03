@@ -1,6 +1,7 @@
-package uz.gita.core.repository
+package uz.gita.core.repository.internal
 
 import android.net.Uri
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
 interface FilesRepository {

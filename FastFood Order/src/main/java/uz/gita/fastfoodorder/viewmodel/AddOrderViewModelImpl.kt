@@ -6,14 +6,13 @@ import androidx.lifecycle.viewModelScope
 import cafe.adriel.voyager.navigator.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import uz.gita.core.data.models.OrderData
-import uz.gita.core.repository.Repository
+import uz.gita.core.repository.DeliveryRepository
 import uz.gita.fastfoodorder.directions.AddOrderDirections
 import uz.gita.fastfoodorder.domain.usecases.AddOrderUseCase
 import uz.gita.fastfoodorder.utils.MyToast
@@ -29,8 +28,8 @@ class AddOrderViewModelImpl @Inject constructor(
     private val toast: MyToast
 ) : AddOrderViewModel, ViewModel() {
 
-    private val orderRep = Repository.orderRepository
-    private val fileRep = Repository.filesRepository
+    private val orderRep = DeliveryRepository.orderRepository
+    private val fileRep = DeliveryRepository.filesRepository
     val uiState = AddOrderUiState()
 
     override val container: Container<AddOrderUiState, Nothing> = container(uiState) {

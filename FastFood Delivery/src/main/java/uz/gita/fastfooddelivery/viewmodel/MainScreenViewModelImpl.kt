@@ -1,18 +1,14 @@
 package uz.gita.fastfooddelivery.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cafe.adriel.voyager.navigator.Navigator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import uz.gita.core.repository.Repository
 import uz.gita.fastfooddelivery.directions.MainDirections
 import uz.gita.fastfooddelivery.domain.usecases.MainUseCase
 import uz.gita.fastfooddelivery.view.main.viewmodel.MainIntent

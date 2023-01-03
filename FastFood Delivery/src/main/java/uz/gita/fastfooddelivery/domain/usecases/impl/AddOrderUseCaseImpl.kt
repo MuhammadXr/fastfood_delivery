@@ -3,14 +3,14 @@ package uz.gita.fastfooddelivery.domain.usecases.impl
 import kotlinx.coroutines.flow.Flow
 import uz.gita.core.data.models.CategoryData
 import uz.gita.core.data.models.OrderData
-import uz.gita.core.repository.Repository
+import uz.gita.core.repository.DeliveryRepository
 import uz.gita.fastfooddelivery.domain.usecases.AddOrderUseCase
 import javax.inject.Inject
 
 class AddOrderUseCaseImpl @Inject constructor(): AddOrderUseCase {
 
-    private val categoryRep = Repository.categoriesRepository
-    private val orderRep = Repository.orderRepository
+    private val categoryRep = DeliveryRepository.categoriesRepository
+    private val orderRep = DeliveryRepository.orderRepository
 
     override fun getCategories(): Flow<List<CategoryData>> = categoryRep.getCategories()
 

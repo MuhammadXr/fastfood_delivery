@@ -44,6 +44,7 @@ import com.github.drjacky.imagepicker.constant.ImageProvider
 import com.skydoves.landscapist.glide.GlideImage
 import org.orbitmvi.orbit.compose.collectAsState
 import uz.gita.core.data.models.OrderData
+import uz.gita.fastfooddelivery.screen_items.ImageSelectItem
 import uz.gita.fastfooddelivery.utils.getImageFilePath
 import uz.gita.fastfooddelivery.utils.getPath
 import uz.gita.fastfooddelivery.view.addorder.viewmodel.AddOrderIntent
@@ -81,14 +82,7 @@ fun AddOrderScreenContent(
 
     
 
-    val launcher =
-        rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartActivityForResult(),
-        onResult = {
-            Log.d("TTT", "RESULT PATH ${it.data?.data}")
-            imageUri.value = it.data?.data
-        }
-    )
+
 
     Box(modifier = Modifier.fillMaxSize()) {
         IconButton(onClick = { eventDispatcher.invoke(AddOrderIntent.Back) }) {
@@ -116,34 +110,7 @@ fun AddOrderScreenContent(
             defaultText = "Select Category",
         )
         val activity = LocalContext.current as Activity
-        Box(
-            modifier = Modifier
-                .size(100.dp)
-                .weight(1f)
-                .clickable {
-                    ImagePicker.with(activity = activity)
-                        .crop()
-                        .maxResultSize(512, 512, true)
-                        .provider(ImageProvider.BOTH)
-                        .createIntentFromDialog {
-                            launcher.launch(it)
-                        }
-                }
-                .clip(RoundedCornerShape(20.dp))
-                .background(color = Color(0xFFCECECE)),
-        ) {
-            if (imageUri.value != null) {
-                GlideImage(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .align(Alignment.Center),
-                    imageModel = { imageUri.value },
-                    )
-            } else {
-                Text(text = "Choose image", modifier = Modifier.align(Alignment.Center))
-            }
-
-        }
+        ImageSelectItem(imageUri = imageUri, activity = activity)
 
 
         TextField(

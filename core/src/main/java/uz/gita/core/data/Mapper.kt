@@ -3,6 +3,7 @@ package uz.gita.core.data
 import com.google.firebase.firestore.DocumentSnapshot
 import uz.gita.core.data.models.CategoryData
 import uz.gita.core.data.models.OrderData
+import uz.gita.core.data.models.UserData
 
 object Mapper {
 
@@ -19,5 +20,13 @@ object Mapper {
         info = this["info"].toString(),
         imgUrl = this["imgUrl"].toString(),
         category = this["category"].toString()
+    )
+
+    fun DocumentSnapshot.toUserData() = UserData(
+        id = this.id,
+        name = this["name"].toString(),
+        location = this["location"].toString(),
+        imgUrl = this["imgUrl"].toString(),
+        signed = this["signed"].toString().toBoolean()
     )
 }
