@@ -1,4 +1,4 @@
-//package uz.gita.fastfooddelivery.di
+package uz.gita.fastfoodorder.di//package uz.gita.fastfooddelivery.di
 //
 //import android.content.Context
 //import androidx.room.Room

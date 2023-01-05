@@ -9,7 +9,7 @@ import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import uz.gita.core.repository.DeliveryRepository
+import uz.gita.core.repository.StoreRepository
 import uz.gita.fastfooddelivery.directions.ProfileDirections
 import uz.gita.fastfooddelivery.view.profile.viewmodel.ProfileIntent
 import uz.gita.fastfooddelivery.view.profile.viewmodel.ProfileUiState
@@ -21,8 +21,8 @@ class ProfileViewModelImpl @Inject constructor(
     private val directions: ProfileDirections
 ) : ProfileViewModel, ViewModel() {
 
-    private val authRep = DeliveryRepository.authRepository
-    private val profileRep = DeliveryRepository.profileRepository
+    private val authRep = StoreRepository.storeAuthRepository
+    private val profileRep = StoreRepository.storeProfileRepository
 
     override val container: Container<ProfileUiState, Nothing> = container(ProfileUiState()) {
         fetchUserInfo()

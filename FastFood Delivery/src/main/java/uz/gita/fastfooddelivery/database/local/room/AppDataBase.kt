@@ -6,10 +6,10 @@
 //import uz.gita.fastfooddelivery.database.dao.OrderDao
 //import uz.gita.fastfooddelivery.database.models.CategoryData
 //import uz.gita.fastfooddelivery.database.models.FoodData
-//import uz.gita.fastfooddelivery.database.models.OrderData
+//import uz.gita.fastfooddelivery.database.models.ProductData
 //
 //@Database(
-//    entities = [CategoryData::class, FoodData::class, OrderData::class],
+//    entities = [CategoryData::class, FoodData::class, ProductData::class],
 //    version = 0
 //)
 //abstract class AppDataBase: RoomDatabase() {

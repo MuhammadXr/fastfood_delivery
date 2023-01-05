@@ -1,0 +1,18 @@
+package uz.gita.fastfoodorder.database.local.room//package uz.gita.fastfooddelivery.database.room
+//
+//import androidx.room.Database
+//import androidx.room.RoomDatabase
+//import uz.gita.fastfooddelivery.database.dao.CategoryDao
+//import uz.gita.fastfooddelivery.database.dao.OrderDao
+//import uz.gita.fastfooddelivery.database.models.CategoryData
+//import uz.gita.fastfooddelivery.database.models.FoodData
+//import uz.gita.fastfooddelivery.database.models.ProductData
+//
+//@Database(
+//    entities = [CategoryData::class, FoodData::class, ProductData::class],
+//    version = 0
+//)
+//abstract class AppDataBase: RoomDatabase() {
+//    abstract fun categoryDao(): CategoryDao
+//    abstract fun orderDao(): OrderDao
+//}

@@ -4,9 +4,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import uz.gita.fastfooddelivery.domain.usecases.AddOrderUseCase
+import uz.gita.fastfooddelivery.domain.usecases.AddProductUseCase
 import uz.gita.fastfooddelivery.domain.usecases.MainUseCase
-import uz.gita.fastfooddelivery.domain.usecases.impl.AddOrderUseCaseImpl
+import uz.gita.fastfooddelivery.domain.usecases.impl.AddProductUseCaseImpl
 import uz.gita.fastfooddelivery.domain.usecases.impl.MainUseCaseImpl
 
 @Module
@@ -16,5 +16,5 @@ interface UseCaseModule {
     fun bindMainUseCase(impl: MainUseCaseImpl): MainUseCase
 
     @Binds
-    fun bindAddOrderUseCase(impl: AddOrderUseCaseImpl): AddOrderUseCase
+    fun bindAddOrderUseCase(impl: AddProductUseCaseImpl): AddProductUseCase
 }

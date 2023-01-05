@@ -2,6 +2,7 @@ package uz.gita.fastfoodorder.directions.impl
 
 import cafe.adriel.voyager.navigator.Navigator
 import uz.gita.fastfoodorder.directions.MainDirections
+import uz.gita.fastfoodorder.navigations.AppNavigation
 import uz.gita.fastfoodorder.view.add_category.AddCategoryScreen
 import uz.gita.fastfoodorder.view.addorder.AddOrderScreen
 import javax.inject.Inject

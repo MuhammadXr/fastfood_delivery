@@ -1,4 +1,4 @@
-package uz.gita.fastfooddelivery.di
+package uz.gita.fastfoodorder.di
 
 import dagger.Binds
 import dagger.Module

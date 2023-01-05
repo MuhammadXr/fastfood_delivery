@@ -10,4 +10,5 @@ interface AppNavigation {
     suspend fun backAll()
     suspend fun backToRoot()
     suspend fun navigateTo(screen: AppScreen)
+    suspend fun replaceTo(screen: AppScreen)
 }

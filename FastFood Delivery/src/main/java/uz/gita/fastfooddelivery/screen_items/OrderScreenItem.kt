@@ -16,14 +16,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.room.Index.Order
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import uz.gita.core.data.models.OrderData
+import uz.gita.core.data.models.ProductData
 
 
 @Preview
 @Composable
-fun PreScreen() {
+fun PreScreenOrder() {
     Column {
         //OrderItem()
         //CategoryScreenItem()

@@ -2,9 +2,8 @@ package uz.gita.fastfooddelivery.view.main.viewmodel
 
 import cafe.adriel.voyager.navigator.Navigator
 import uz.gita.core.data.models.CategoryData
-import uz.gita.core.data.models.OrderData
+import uz.gita.core.data.models.ProductData
 import uz.gita.fastfooddelivery.AppViewModel
-import java.io.Serializable
 
 interface MainScreenViewModel: AppViewModel<MainIntent, UiState, Nothing> {
 
@@ -20,6 +19,6 @@ sealed interface MainIntent{
 }
 
 data class UiState(
-    val itemsList: List<OrderData> = emptyList(),
+    val itemsList: List<ProductData> = emptyList(),
     val categoryItems: List<CategoryData> = emptyList()
 )

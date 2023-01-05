@@ -7,7 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.viewmodel.container
-import uz.gita.core.repository.DeliveryRepository
+import uz.gita.core.repository.StoreRepository
 import uz.gita.fastfooddelivery.directions.SplashDirections
 import uz.gita.fastfooddelivery.view.splash.viewmodel.SplashIntent
 import uz.gita.fastfooddelivery.view.splash.viewmodel.SplashUiState
@@ -20,7 +20,7 @@ class SplashViewModelImpl @Inject constructor(
 ): SplashViewModel, ViewModel() {
 
     override val container: Container<SplashUiState, Nothing> = container(SplashUiState())
-    private val authRep = DeliveryRepository.authRepository
+    private val authRep = StoreRepository.storeAuthRepository
 
     override fun onEventDispatcher(intent: SplashIntent) {
 

@@ -25,15 +25,14 @@ import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.hilt.getViewModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.google.firebase.auth.FirebaseUser
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
 import org.orbitmvi.orbit.compose.collectAsState
-import uz.gita.core.data.models.OrderData
-import uz.gita.core.repository.DeliveryRepository
+import uz.gita.core.data.models.ProductData
 import uz.gita.fastfooddelivery.screen_items.CategoryScreenItem
-import uz.gita.fastfooddelivery.screen_items.OrderItem
+import uz.gita.fastfooddelivery.screen_items.ProductItem
 import uz.gita.fastfooddelivery.screen_items.OrderItemTitle
+import uz.gita.fastfooddelivery.screen_items.ProductItemTitle
 import uz.gita.fastfooddelivery.view.main.viewmodel.MainIntent
 import uz.gita.fastfooddelivery.view.main.viewmodel.MainScreenViewModel
 import uz.gita.fastfooddelivery.view.main.viewmodel.UiState
@@ -92,15 +91,15 @@ fun MainScreenContent(
 
                 if (orderList.isNotEmpty()) {
                     item(span = { GridItemSpan(2) }) {
-                        OrderItemTitle(title = categoryItem.name, horizontalPadding = 8.dp, verticalPadding = 8.dp)
+                        ProductItemTitle(title = categoryItem.name, horizontalPadding = 8.dp, verticalPadding = 8.dp)
                     }
 
                     items(
                         count = orderList.size,
                         itemContent = { index ->
                             val item = orderList[index]
-                            OrderItem(
-                                orderData = item,
+                            ProductItem(
+                                productData = item,
                                 horizontalPadding = 4.dp,
                                 verticalPadding = 10.dp,
                                 buttonAddToCart = {
@@ -163,7 +162,7 @@ fun TopAppBar(
 
 @Composable
 fun OrderItemView(
-    orderData: OrderData
+    productData: ProductData
 ) {
     Column {
         Row(
@@ -171,10 +170,10 @@ fun OrderItemView(
                 .fillMaxWidth()
                 .wrapContentHeight()
         ) {
-            Text(text = orderData.name)
+            Text(text = productData.name)
             Spacer(modifier = Modifier.weight(1f))
             GlideImage(
-                imageModel = { orderData.imgUrl },
+                imageModel = { productData.imgUrl },
                 imageOptions = ImageOptions(
                     contentScale = ContentScale.Crop,
                     alignment = Alignment.Center

@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.viewmodel.container
-import uz.gita.core.repository.DeliveryRepository
+import uz.gita.core.repository.StoreRepository
 import uz.gita.fastfooddelivery.directions.VerifyDirections
 import uz.gita.fastfooddelivery.utils.MyToast
 import uz.gita.fastfooddelivery.view.auth_ui.verification.viewmodel.VerifyIntent
@@ -23,7 +23,7 @@ class VerifyViewModelImpl @Inject constructor(
     private val toast: MyToast
 ) : VerifyViewModel, ViewModel() {
 
-    private val auth = DeliveryRepository.authRepository
+    private val auth = StoreRepository.storeAuthRepository
     val uiState = VerifyUiState()
 
     override val container: Container<VerifyUiState, Nothing> = container(uiState) {

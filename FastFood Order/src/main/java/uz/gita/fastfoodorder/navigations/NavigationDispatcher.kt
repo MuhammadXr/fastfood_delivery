@@ -1,5 +1,6 @@
 package uz.gita.fastfoodorder.navigations
 
+import android.util.Log
 import kotlinx.coroutines.flow.MutableSharedFlow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -21,6 +22,10 @@ class NavigationDispatcher @Inject constructor() : AppNavigation, NavigationHand
 
     override suspend fun navigateTo(screen: AppScreen) = navigate {
         push(screen)
+    }
+
+    override suspend fun replaceTo(screen: AppScreen) = navigate{
+        replace(screen)
     }
 
 

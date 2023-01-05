@@ -5,7 +5,7 @@
 //import java.util.UUID
 //
 //@Entity
-//data class OrderData(
+//data class ProductData(
 //    @PrimaryKey
 //    val id: String,
 //    val name: String = "empty name",

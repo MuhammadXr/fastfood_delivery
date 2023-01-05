@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.viewmodel.container
-import uz.gita.core.repository.DeliveryRepository
+import uz.gita.core.repository.StoreRepository
 import uz.gita.fastfooddelivery.directions.RegisterDirections
 import uz.gita.fastfooddelivery.view.auth_ui.registration.viewmodel.RegisterIntent
 import uz.gita.fastfooddelivery.view.auth_ui.registration.viewmodel.RegisterUiState
@@ -20,8 +20,8 @@ class RegisterViewModelImpl @Inject constructor(
     private val directions: RegisterDirections
 ) : RegisterViewModel, ViewModel() {
 
-    private val profileRep = DeliveryRepository.profileRepository
-    private val filesRep = DeliveryRepository.filesRepository
+    private val profileRep = StoreRepository.storeProfileRepository
+    private val filesRep = StoreRepository.filesRepository
 
     override val container: Container<RegisterUiState, Nothing> = container(RegisterUiState())
 

@@ -1,16 +1,15 @@
 package uz.gita.fastfooddelivery.view.tab_navigation
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.navigator.tab.CurrentTab
@@ -44,7 +43,7 @@ fun TabScreenContent() {
             bottomBar = {
                 BottomNavigation {
                     TabNavigationItem(tab = OrdersTab)
-                    //TabNavigationItem(tab = RestaurantTab)
+                    TabNavigationItem(tab = DeliveryTab)
                     TabNavigationItem(tab = MainTab)
                     TabNavigationItem(tab = ProfileTab)
                 }
@@ -73,7 +72,16 @@ fun RowScope.TabNavigationItem(tab: Tab) {
     BottomNavigationItem(
         selected = tabNavigator.current.key == tab.key,
         onClick = { tabNavigator.current = tab },
-        icon = { Icon(painter = tab.options.icon!!, contentDescription = tab.options.title) }
+        icon = {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Icon(painter = tab.options.icon!!, contentDescription = tab.options.title)
+                Text(text = tab.options.title)
+            }
+
+        }
     )
 
 }

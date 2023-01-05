@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.viewmodel.container
 import uz.gita.core.data.models.CategoryData
-import uz.gita.core.repository.DeliveryRepository
+import uz.gita.core.repository.StoreRepository
 import uz.gita.fastfooddelivery.directions.AddCategoryDirections
 import uz.gita.fastfooddelivery.utils.MyToast
 import uz.gita.fastfooddelivery.view.add_category.viewmodel.A_C_UiState
@@ -25,7 +25,7 @@ class AddCategoryViewModelImpl @Inject constructor(
     private val myToast: MyToast
 ) : AddCategoryViewModel, ViewModel() {
 
-    private val repository = DeliveryRepository.categoriesRepository
+    private val repository = StoreRepository.categoriesRepository
 
     override val container: Container<A_C_UiState, Nothing> = container(A_C_UiState())
     override fun setNavigator(navigator: Navigator) {

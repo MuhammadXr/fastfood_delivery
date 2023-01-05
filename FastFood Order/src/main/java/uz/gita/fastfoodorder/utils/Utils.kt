@@ -1,5 +1,6 @@
 package uz.gita.fastfoodorder.utils
 
+import android.R.attr.path
 import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
@@ -13,7 +14,7 @@ interface MyToast{
     fun makeText(text: String)
 }
 
-class MyToastImpl(private val context: Context): MyToast {
+class MyToastImpl(private val context: Context): MyToast{
     override fun makeText(text: String) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }

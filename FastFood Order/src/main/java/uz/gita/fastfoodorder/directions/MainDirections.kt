@@ -1,6 +1,7 @@
 package uz.gita.fastfoodorder.directions
 
 import cafe.adriel.voyager.navigator.Navigator
+import uz.gita.fastfoodorder.navigations.AppScreen
 
 interface MainDirections {
 
